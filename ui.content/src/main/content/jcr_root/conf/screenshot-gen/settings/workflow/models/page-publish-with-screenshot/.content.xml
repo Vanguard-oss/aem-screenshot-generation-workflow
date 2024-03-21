@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:designPath="/libs/settings/wcm/designs/default"
+        cq:lastModified="{Date}2024-03-11T23:30:43.622-04:00"
+        cq:lastModifiedBy="tanuj_jindal@vanguard.com"
+        cq:template="/libs/cq/workflow/templates/model"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="Page Publish with Screenshot"
+        sling:resourceType="cq/workflow/components/pages/model">
+        <flow
+            jcr:primaryType="nt:unstructured"
+            sling:resourceType="foundation/components/parsys">
+            <process_770070658
+                jcr:created="{Date}2024-03-11T17:23:35.587-04:00"
+                jcr:createdBy="tanuj_jindal@vanguard.com"
+                jcr:lastModified="{Date}2024-03-11T23:30:43.602-04:00"
+                jcr:lastModifiedBy="tanuj_jindal@vanguard.com"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Publish Page to preview"
+                sling:resourceType="cq/workflow/components/model/process">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PROCESS="com.vanguard.screenshot.gen.core.workflow.Replication"
+                    PROCESS_ARGS="agent=preview"
+                    PROCESS_AUTO_ADVANCE="true"/>
+            </process_770070658>
+            <process
+                jcr:created="{Date}2024-02-29T15:42:17.956-05:00"
+                jcr:createdBy="admin"
+                jcr:lastModified="{Date}2024-03-11T17:24:21.102-04:00"
+                jcr:lastModifiedBy="tanuj_jindal@vanguard.com"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Generate Screenshot"
+                sling:resourceType="cq/workflow/components/model/process">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PROCESS="com.vanguard.screenshot.gen.core.workflow.GenerateScreenshot"
+                    PROCESS_AUTO_ADVANCE="true"/>
+            </process>
+            <participant
+                jcr:created="{Date}2024-03-11T22:24:07.177-04:00"
+                jcr:createdBy="tanuj_jindal@vanguard.com"
+                jcr:lastModified="{Date}2024-03-11T22:29:08.799-04:00"
+                jcr:lastModifiedBy="admin"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="Review Screenshot"
+                sling:resourceType="cq/workflow/components/model/participant">
+                <metaData
+                    jcr:primaryType="nt:unstructured"
+                    PARTICIPANT="administrators"/>
+            </participant>
+            <or
+                jcr:created="{Date}2024-03-11T22:07:54.646-04:00"
+                jcr:createdBy="tanuj_jindal@vanguard.com"
+                jcr:lastModified="{Date}2024-03-11T23:14:03.748-04:00"
+                jcr:lastModifiedBy="tanuj_jindal@vanguard.com"
+                jcr:primaryType="nt:unstructured"
+                jcr:title="is Screenshot Approved"
+                sling:resourceType="cq/workflow/components/model/or"
+                branches="2"
+                branchName1="Approve"
+                branchName2="Reject"
+                branchOrder="[0,1]"
+                default1="true"
+                orSplit="true">
+                <_x0031_
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="cq/flow/components/parsys">
+                    <activateresourceproc
+                        jcr:created="{Date}2024-02-29T14:14:34.108-05:00"
+                        jcr:createdBy="admin"
+                        jcr:description="A process to activate a page or asset"
+                        jcr:lastModified="{Date}2024-03-11T22:51:41.390-04:00"
+                        jcr:lastModifiedBy="tanuj_jindal@vanguard.com"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Approve"
+                        sling:resourceType="wcm/workflow/components/workflow/activateresourceprocess">
+                        <metaData
+                            jcr:primaryType="nt:unstructured"
+                            PROCESS="com.day.cq.wcm.workflow.process.ActivatePageProcess"
+                            PROCESS_AUTO_ADVANCE="true"/>
+                    </activateresourceproc>
+                </_x0031_>
+                <_x0032_
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="cq/flow/components/parsys">
+                    <noopprocess
+                        jcr:created="{Date}2024-03-11T22:19:42.215-04:00"
+                        jcr:createdBy="tanuj_jindal@vanguard.com"
+                        jcr:description="A no operation process"
+                        jcr:lastModified="{Date}2024-03-11T23:14:34.194-04:00"
+                        jcr:lastModifiedBy="tanuj_jindal@vanguard.com"
+                        jcr:primaryType="nt:unstructured"
+                        jcr:title="Reject"
+                        sling:resourceType="cq/workflow/components/workflow/noopprocess">
+                        <metaData
+                            jcr:primaryType="nt:unstructured"
+                            PROCESS="/libs/workflow/scripts/noop.ecma"
+                            PROCESS_AUTO_ADVANCE="true"/>
+                    </noopprocess>
+                </_x0032_>
+            </or>
+        </flow>
+    </jcr:content>
+</jcr:root>
