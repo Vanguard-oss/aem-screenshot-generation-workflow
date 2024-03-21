@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/screenshot-gen"/>
+    <filter root="/var/workflow/models/conf/screenshot-gen"/>
+    <filter root="/content/screenshot-gen" mode="merge"/>
+    <filter root="/content/dam/screenshot-gen" mode="merge"/>
+    <filter root="/content/experience-fragments/screenshot-gen" mode="merge"/>
+</workspaceFilter>
